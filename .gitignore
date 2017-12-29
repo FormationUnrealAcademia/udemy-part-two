@@ -1,6 +1,7 @@
 ##########################
 # Unreal Generated Files #
 ##########################
+*/.vs
 */Build
 */Binaries
 */DerivedDataCache
