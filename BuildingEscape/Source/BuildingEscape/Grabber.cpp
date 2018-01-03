@@ -59,7 +59,8 @@ void UGrabber::Grab() {
 	if (ActorHit) 
 	{
 		// attach physics handle
-		PhysicsHandle->GrabComponent(
+		if (!PhysicsHandle) { return; }
+			PhysicsHandle->GrabComponent(
 			ComponentToGrab,
 			NAME_None,
 			ComponentToGrab->GetOwner()->GetActorLocation(),
@@ -70,6 +71,7 @@ void UGrabber::Grab() {
 
 void UGrabber::Release() {
 	// release physics handle
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
@@ -100,6 +102,8 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (!PhysicsHandle) { return; }
 
 	/// if the physics handle is attached
 	if (PhysicsHandle->GrabbedComponent)
